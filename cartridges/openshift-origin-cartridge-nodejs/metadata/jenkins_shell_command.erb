@@ -18,6 +18,7 @@ $GIT_SSH $upstream_ssh 'gear stop'
 
 # Push content back to application
 rsync ~/.node_modules $upstream_ssh:~/.node_modules
+rsync $OPENSHIFT_REPO_DIR $upstream_ssh:~/app-root/repo/
 
 # Configure / start app
 $GIT_SSH $upstream_ssh 'gear cideploy'
