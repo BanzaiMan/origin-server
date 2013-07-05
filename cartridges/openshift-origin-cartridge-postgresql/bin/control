@@ -207,7 +207,7 @@ case "$1" in
   post-restore)
     post_restore
   ;;
-  reload)
+  force-reload|reload)
     reload
   ;;
   tidy)
