@@ -3,6 +3,7 @@
     %global scl_prefix postgresql92-
     %global scl_ruby ruby193
     %global scl_prefix_ruby ruby193-
+    %global postgis_version 1.5.8
 %endif
 
 %global cartridgedir %{_libexecdir}/openshift/cartridges/postgresql
@@ -32,6 +33,9 @@ Requires:      %{?scl:%scl_prefix}postgresql-contrib
 Requires:      %{?scl:%scl_prefix}postgresql-plperl
 Requires:      %{?scl:%scl_prefix}postgresql-plpython
 Requires:      %{?scl:%scl_prefix}postgresql-pltcl
+# additional packages required to compile PostGIS from source
+BuildRequires:      geos-devel
+BuildRequires:      proj-devel
 %endif
 %if 0%{?fedora} >= 19
 Requires:      postgresql >= 9.2
@@ -79,6 +83,12 @@ Provides PostgreSQL cartridge support to OpenShift. (Cartridge Format V2)
 %__mv %{buildroot}%{cartridgedir}/metadata/manifest.yml.rhel %{buildroot}%{cartridgedir}/metadata/manifest.yml
 %__mv %{buildroot}%{cartridgedir}/lib/util.rhel %{buildroot}%{cartridgedir}/lib/util
 %__rm %{buildroot}%{cartridgedir}/lib/util.f19
+# # download source (assume source RPM is not available)
+curl http://download.osgeo.org/postgis/source/postgis-%{postgis_version}.tar.gz | tar xzf -
+pushd postgis-%{postgis_version} 2>&1 >/dev/null
+scl enable postgresql92 "./configure && make install"
+popd 2>&1 >/dev/null
+%__rm -rf %{buildroot}%{cartridgedir}/postgis-%{postgis_version}
 %endif
 %if 0%{?fedora} == 19
 %__rm -rf %{buildroot}%{cartridgedir}/versions/8.4
