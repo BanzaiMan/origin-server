@@ -28,12 +28,12 @@ Requires:      postgresql < 9
 Requires:      %{scl}
 Requires:      %{?scl:%scl_prefix}postgresql-server
 Requires:      %{?scl:%scl_prefix}postgresql-libs
-Requires:      %{?scl:%scl_prefix}postgresql-devel
 Requires:      %{?scl:%scl_prefix}postgresql-contrib
 Requires:      %{?scl:%scl_prefix}postgresql-plperl
 Requires:      %{?scl:%scl_prefix}postgresql-plpython
 Requires:      %{?scl:%scl_prefix}postgresql-pltcl
 # additional packages required to compile PostGIS from source
+BuildRequires:      %{?scl:%scl_prefix}postgresql-devel
 BuildRequires:      geos-devel
 BuildRequires:      proj-devel
 %endif
