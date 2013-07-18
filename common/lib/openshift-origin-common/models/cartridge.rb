@@ -1,7 +1,7 @@
 module OpenShift
   class Cartridge < OpenShift::Model
     attr_accessor :name, :version, :architecture, :display_name, :description, :vendor, :license,
-                  :provides, :requires, :conflicts, :suggests, :native_requires, :default_profile,
+                  :provides, :requires, :suggests, :native_requires, :default_profile,
                   :path, :license_url, :categories, :website, :suggests_feature,
                   :help_topics, :cart_data_def, :additional_control_actions, :versions, :cartridge_vendor,
                   :endpoints
@@ -115,7 +115,6 @@ module OpenShift
       self.description = spec_hash["Description"] || ""
       self.provides = spec_hash["Provides"] || []
       self.requires = spec_hash["Requires"] || []
-      self.conflicts = spec_hash["Conflicts"] || []
       self.native_requires = spec_hash["Native-Requires"] || []
       self.categories = spec_hash["Categories"] || []
       self.website = spec_hash["Website"] || ""
@@ -126,7 +125,6 @@ module OpenShift
       
       self.provides = [self.provides] if self.provides.class == String
       self.requires = [self.requires] if self.requires.class == String
-      self.conflicts = [self.conflicts] if self.conflicts.class == String
       self.native_requires = [self.native_requires] if self.native_requires.class == String
 
       self.endpoints = []
@@ -145,7 +143,7 @@ module OpenShift
         end
       else
         ["Name", "Version", "Architecture", "DisplayName", "License",
-           "Provides", "Requires", "Conflicts", "Native-Requires"].each do |k|
+           "Provides", "Requires", "Native-Requires"].each do |k|
           spec_hash.delete(k)
         end
         p = Profile.new.from_descriptor(self, spec_hash)
@@ -186,7 +184,6 @@ module OpenShift
 
       h["Provides"] = self.provides if self.provides && !self.provides.empty?
       h["Requires"] = self.requires if self.requires && !self.requires.empty?
-      h["Conflicts"] = self.conflicts if self.conflicts && !self.conflicts.empty?
       h["Suggests"] = self.suggests if self.suggests && !self.suggests.empty? 
       h["Native-Requires"] = self.native_requires if self.native_requires && !self.native_requires.empty?
       h["Vendor"] = self.vendor if self.vendor and !self.vendor.empty? and self.vendor != "unknown"

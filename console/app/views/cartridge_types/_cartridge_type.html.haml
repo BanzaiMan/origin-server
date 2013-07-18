@@ -67,8 +67,6 @@
     - case reason
     - when :requires
       .warning Requires #{cartridge_type.requires.join(',')}
-    - when :conflicts
-      .warning Conflicts with #{cartridge_type.conflicts.join(',')}
     - when :blocked
       .warning Cannot be added to #{application.framework_name}
 

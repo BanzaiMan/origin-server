@@ -20,7 +20,7 @@ class CartridgeType < RestApi::Base
   attr_accessor :cartridge
   attr_accessor :website, :license, :license_url
   attr_accessor :learn_more_url
-  attr_accessor :conflicts, :requires
+  attr_accessor :requires
   attr_accessor :help_topics
   attr_accessor :priority
   attr_accessor :usage_rates
@@ -81,10 +81,6 @@ class CartridgeType < RestApi::Base
   def tags=(tags)
     @tags = nil
     @attributes[:tags] = tags
-  end
-
-  def conflicts
-    @conflicts || []
   end
 
   def requires

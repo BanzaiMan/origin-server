@@ -56,8 +56,6 @@ Provides:
   - "nodejs (version) = 0.10"
 Requires:
 
-Conflicts:
-
 Native-Requires:
 
 Scaling:

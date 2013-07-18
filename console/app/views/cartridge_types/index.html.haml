@@ -24,16 +24,15 @@
           %input{:type => :text, :name => :url, :placeholder => 'URL to a cartridge definition'}
           %input.btn{:type => :submit, :value => 'Next', :title => 'Download a cartridge into this app'}
 
-  - unless @installed.empty? and @requires.empty? and @conflicts.empty? and @blocked.empty?
+  - unless @installed.empty? and @requires.empty? and @blocked.empty?
     .span4
       - unless @installed.empty?
         %h3 Installed
         = render :collection => @installed, :partial => 'cartridge_types/cartridge_type', :locals => {:application => @application, :inactive => true, :reason => :installed}
 
-      - unless @requires.empty? and @conflicts.empty? and @blocked.empty?
+      - unless @requires.empty? and @blocked.empty?
         %h3 Has Dependencies
         = render :collection => @requires, :partial => 'cartridge_types/cartridge_type', :locals => {:application => @application, :inactive => true, :reason => :requires}
-        = render :collection => @conflicts, :partial => 'cartridge_types/cartridge_type', :locals => {:application => @application, :inactive => true, :reason => :conflicts}
         = render :collection => @blocked, :partial => 'cartridge_types/cartridge_type', :locals => {:application => @application, :inactive => true, :reason => :blocked}
 
 - content_for :javascripts do

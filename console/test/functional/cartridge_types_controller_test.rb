@@ -15,8 +15,6 @@ class CartridgeTypesControllerTest < ActionController::TestCase
 
     assert types = assigns(:installed)
     assert_equal 0, types.length
-    assert types = assigns(:conflicts)
-    assert_equal 0, types.length
     assert types = assigns(:requires)
     assert types.length > 0
     assert types = assigns(:blacklist)

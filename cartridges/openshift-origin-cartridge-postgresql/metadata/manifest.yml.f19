@@ -35,9 +35,6 @@ Provides:
   - postgresql-9.2
   - "postgresql"
   - "postgresql(version) = 9.2"
-Conflicts:
-  - mysql
-  - mariadb
 Publishes:
   publish-db-connection-info:
     Type: "ENV:NET_TCP:db:connection-info"

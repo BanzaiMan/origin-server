@@ -13,10 +13,9 @@ class CartridgeTypesController < ConsoleController
     @installed, types = types.partition{ |t| installed_carts.any?{ |c| c.name == t.name } }
     @blacklist, types = types.partition{ |t| t.tags.include?(:blacklist) }
 
-    @conflicts, types = types.partition{ |t| conflicts? t }
     @requires, types  = types.partition{ |t| requires? t }
 
-    @installed.sort!; @conflicts.sort!; @requires.sort!
+    @installed.sort!; @requires.sort!
     @carts = types.sort!
   end
 
@@ -28,17 +27,6 @@ class CartridgeTypesController < ConsoleController
     @application = @domain.find_application params[:application_id]
     @cartridge_type = url ? CartridgeType.for_url(url) : CartridgeType.cached.find(name)
     @cartridge = Cartridge.new :as => current_user
-  end
-
-  def conflicts?(cart_type)
-    t = cart_type
-
-    return false if @installed.nil? || t.conflicts.empty?
-
-    # if this cart can conflict and a conflicting cart is installed
-    # add this cart to the conflicted list
-    @installed.each { |c| return true if t.conflicts.include? c.name }
-    return false
   end
 
   def requires?(cart_type)
